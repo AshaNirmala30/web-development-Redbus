@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Bus Tour</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        .tour-container {
+            width: 80%;
+            max-width: 800px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .panorama-container {
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .panorama-image {
+            width: 200%; /* Adjust as needed for your panorama image */
+            height: 100%;
+            background-image: url('bus_panorama.jpg'); /* Replace with your panorama image */
+            background-size: cover;
+            background-position: center;
+            cursor: grab;
+        }
+
+        .panorama-image.active {
+            cursor: grabbing;
+        }
+
+        .seating-arrangement {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .seating-arrangement img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="tour-container">
+        <h1>Virtual Bus Tour</h1>
+        <div class="panorama-container">
+            <div class="panorama-image"></div>
+        </div>
+        <div class="seating-arrangement">
+            <h2>Seating Arrangement</h2>
+            <img src="bus_seating.png" alt="Bus Seating Arrangement">
+        </div>
+        <p>Explore the bus interior and seating before booking!</p>
+    </div>
+
+    <script>
+        const panoramaImage = document.querySelector('.panorama-image');
+        let isDragging = false;
+        let startX;
+        let scrollLeft;
+
+        panoramaImage.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            panoramaImage.classList.add('active');
+            startX = e.pageX - panoramaImage.offsetLeft;
+            scrollLeft = panoramaImage.scrollLeft;
+        });
+
+        panoramaImage.addEventListener('mouseleave', () => {
+            isDragging = false;
+            panoramaImage.classList.remove('active');
+        });
+
+        panoramaImage.addEventListener('mouseup', () => {
+            isDragging = false;
+            panoramaImage.classList.remove('active');
+        });
+
+        panoramaImage.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            const x = e.pageX - panoramaImage.offsetLeft;
+            const walk = (x - startX) * 2; // Adjust scroll speed
+            panoramaImage.scrollLeft = scrollLeft - walk;
+        });
+
+        // Optional: Implement touch event handling for mobile devices
+        panoramaImage.addEventListener('touchstart', (e) => {
+          if (e.touches.length === 1) {
+            isDragging = true;
+            panoramaImage.classList.add('active');
+            startX = e.touches[0].pageX - panoramaImage.offsetLeft;
+            scrollLeft = panoramaImage.scrollLeft;
+          }
+        });
+
+        panoramaImage.addEventListener('touchend', () => {
+          isDragging = false;
+          panoramaImage.classList.remove('active');
+        });
+
+        panoramaImage.addEventListener('touchmove', (e) => {
+          if (!isDragging || e.touches.length !== 1) return;
+          e.preventDefault();
+          const x = e.touches[0].pageX - panoramaImage.offsetLeft;
+          const walk = (x - startX) * 2; // Adjust scroll speed
+          panoramaImage.scrollLeft = scrollLeft - walk;
+        });
+
+    </script>
+</body>
+</html>

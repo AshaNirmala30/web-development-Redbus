@@ -1,0 +1,86 @@
+/* Basic Reset and Styling */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  
+  .tour-container {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 90%;
+    max-width: 800px;
+    text-align: center;
+  }
+  
+  h1 {
+    margin-bottom: 20px;
+  }
+  
+  /* Panorama Container */
+  .panorama-container {
+    position: relative;
+    width: 100%;
+    height: 400px; /* Adjust as needed */
+    overflow: hidden;
+    border-radius: 5px;
+  }
+  
+  .panorama-image {
+    width: 200%; /* Adjust based on image width */
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    cursor: grab;
+    transition: transform 0.1s ease-out;
+  }
+  
+  .panorama-image.active {
+    cursor: grabbing;
+  }
+  
+  /* Seating Arrangement */
+  .seating-arrangement {
+    margin-top: 20px;
+  }
+  
+  .seating-arrangement img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .panorama-container {
+      height: 300px; /* Adjust for smaller screens */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .tour-container {
+      padding: 15px;
+    }
+  }
+  
+  /* Optional: Hover Effects */
+  .seating-arrangement img:hover {
+    transform: scale(1.02);
+    transition: transform 0.3s ease;
+  }
+  
+  .panorama-image:hover {
+      filter: brightness(1.05); /* Example: Slight brightness increase */
+  }
